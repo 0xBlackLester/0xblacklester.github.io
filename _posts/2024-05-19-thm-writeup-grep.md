@@ -5,7 +5,7 @@ excerpt: "Grep es un sitio web en desarrollo el cual tenemos que tratar de vulne
 date: 2024-05-19
 classes: wide
 header:
-  teaser: /assets/images/htb-writeup-delivery/delivery_logo.png
+  teaser: /assets/images/thm-writeup-grep/grep_logo.png
   teaser_home_page: true
   icon: /assets/images/hackthebox.webp
 categories:
