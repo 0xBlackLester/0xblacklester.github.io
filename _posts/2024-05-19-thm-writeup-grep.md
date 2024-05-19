@@ -22,7 +22,7 @@ tags:
 ![](/assets/images/htb-writeup-delivery/delivery_logo.png)
 Como cualquier otro reto, comenzaremos con la fase de reconocimiento, para ellos utilizaremos la herramienta nmap para escanear los scripts/versiones y puertos abiertos del servidor web.
 
-## Portscan
+## Escaneo de puertos
 
 ```
 Nmap scan report for 10.10.250.61
@@ -112,7 +112,7 @@ PORT      STATE SERVICE  REASON  VERSION
 Service Info: Host: ip-10-10-250-61.eu-west-1.compute.internal; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
-## Website
+## Modificamos el /etc/hosts
 
 The Delivery website is pretty basic, there's a link to a vhost called helpdesk.delivery.htb and a contact us section. We'll add this entry to our local host before proceeding further.
 
