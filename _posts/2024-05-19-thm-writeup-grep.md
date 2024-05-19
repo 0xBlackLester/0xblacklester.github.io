@@ -12,11 +12,11 @@ categories:
   - hackthebox
   - infosec
 tags:  
-  - osticket
+  - osint
+  - tryhackme
+  - easy
+  - api
   - mysql
-  - mattermost
-  - hashcat
-  - rules
 ---
 
 ![](/assets/images/htb-writeup-delivery/delivery_logo.png)
