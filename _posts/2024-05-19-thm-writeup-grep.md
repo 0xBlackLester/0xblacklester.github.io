@@ -20,48 +20,96 @@ tags:
 ---
 
 ![](/assets/images/htb-writeup-delivery/delivery_logo.png)
-
-Delivery is a quick and fun easy box where we have to create a MatterMost account and validate it by using automatic email accounts created by the OsTicket application. The admins on this platform have very poor security practices and put plaintext credentials in MatterMost. Once we get the initial shell with the creds from MatterMost we'll poke around MySQL and get a root password bcrypt hash. Using a hint left in the MatterMost channel about the password being a variation of PleaseSubscribe!, we'll use hashcat combined with rules to crack the password then get the root shell.
+Grep es un sitio web en desarrollo el cual tenemos que tratar de vulnerar utilizando técnicas como OSINT. Se trata de un CaptureTheFlag nivel fácil, algo a destacar de este CTF es que no necesitaremos escalar privilegios para completar el ejercicio.
 
 ## Portscan
 
 ```
-Nmap scan report for 10.129.148.141
-Host is up (0.018s latency).
-Not shown: 65532 closed ports
-PORT     STATE SERVICE VERSION
-22/tcp   open  ssh     OpenSSH 7.9p1 Debian 10+deb10u2 (protocol 2.0)
-| ssh-hostkey: 
-|   2048 9c:40:fa:85:9b:01:ac:ac:0e:bc:0c:19:51:8a:ee:27 (RSA)
-|   256 5a:0c:c0:3b:9b:76:55:2e:6e:c4:f4:b9:5d:76:17:09 (ECDSA)
-|_  256 b7:9d:f7:48:9d:a2:f2:76:30:fd:42:d3:35:3a:80:8c (ED25519)
-80/tcp   open  http    nginx 1.14.2
-|_http-server-header: nginx/1.14.2
-|_http-title: Welcome
-8065/tcp open  unknown
-| fingerprint-strings: 
-|   GenericLines, Help, RTSPRequest, SSLSessionReq, TerminalServerCookie: 
-|     HTTP/1.1 400 Bad Request
-|     Content-Type: text/plain; charset=utf-8
-|     Connection: close
-|     Request
-|   GetRequest: 
-|     HTTP/1.0 200 OK
-|     Accept-Ranges: bytes
-|     Cache-Control: no-cache, max-age=31556926, public
-|     Content-Length: 3108
-|     Content-Security-Policy: frame-ancestors 'self'; script-src 'self' cdn.rudderlabs.com
-|     Content-Type: text/html; charset=utf-8
-|     Last-Modified: Sun, 09 May 2021 00:00:02 GMT
-|     X-Frame-Options: SAMEORIGIN
-|     X-Request-Id: fqrpd5m3ftgnzmxkbieezqadxo
-|     X-Version-Id: 5.30.0.5.30.1.57fb31b889bf81d99d8af8176d4bbaaa.false
-|     Date: Sun, 09 May 2021 00:01:31 GMT
-|     <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0"><meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer"><title>Mattermost</title><meta name="mobile-web-app-capable" content="yes"><meta name="application-name" content="Mattermost"><meta name="format-detection" content="telephone=no"><link re
-|   HTTPOptions: 
-|     HTTP/1.0 405 Method Not Allowed
-|     Date: Sun, 09 May 2021 00:01:31 GMT
-|_    Content-Length: 0
+Nmap scan report for 10.10.250.61
+Host is up, received syn-ack (0.083s latency).
+Scanned at 2024-05-19 16:13:50 CEST for 79s
+Not shown: 60869 closed ports, 4662 filtered ports
+Reason: 60869 conn-refused and 4662 no-responses
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT      STATE SERVICE  REASON  VERSION
+22/tcp    open  ssh      syn-ack OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+80/tcp    open  http     syn-ack Apache httpd 2.4.41 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+443/tcp   open  ssl/http syn-ack Apache httpd 2.4.41
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+|_http-title: 403 Forbidden
+| ssl-cert: Subject: commonName=grep.thm/organizationName=SearchME/stateOrProvinceName=Some-State/countryName=US
+| Issuer: commonName=grep.thm/organizationName=SearchME/stateOrProvinceName=Some-State/countryName=US
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2023-06-14T13:03:09
+| Not valid after:  2024-06-13T13:03:09
+| MD5:   7295 8ef0 7c16 221c 3b0a 40ee 913c 766c
+| SHA-1: 38c2 3ba3 34b1 851a f1d4 ee0a 37bd 701a 830c 7dd8
+| -----BEGIN CERTIFICATE-----
+| MIIDFzCCAf8CFGTWwbbVKaNSN8fhUdtf0QT84zCSMA0GCSqGSIb3DQEBCwUAMEgx
+| CzAJBgNVBAYTAlVTMRMwEQYDVQQIDApTb21lLVN0YXRlMREwDwYDVQQKDAhTZWFy
+| Y2hNRTERMA8GA1UEAwwIZ3JlcC50aG0wHhcNMjMwNjE0MTMwMzA5WhcNMjQwNjEz
+| MTMwMzA5WjBIMQswCQYDVQQGEwJVUzETMBEGA1UECAwKU29tZS1TdGF0ZTERMA8G
+| A1UECgwIU2VhcmNoTUUxETAPBgNVBAMMCGdyZXAudGhtMIIBIjANBgkqhkiG9w0B
+| AQEFAAOCAQ8AMIIBCgKCAQEAtiDNwwY9IR2HADMy6CRAwiPH0s8dIOFGPrbYCbLz
+| fDKIWURlczzOlmgpscN/YHHpt6P5ywUPLGnMK3ukYag7xTUYl+vmledTnD9oebnJ
+| 6qDweFFwdZ8hysITyvCyGgqcY52JE2nBtVNj6/L16iZ60KKko8opNsTE5IYj/sUt
+| PsOxeNiV3oqpOUeKtZJbn7Kssd4KBwnRqTSUlXlPXzeRipAiW5SZZXo6K4YeLVht
+| XlLPtPWsMC0fj16DDDtxLlZmvu3J5o9egp/eRpWmvKWIaKQ57Y0MKB8/gso8FxxX
+| NiRY9Nru0C3DCUbc/xXywQ9pIGt/Xir++aXhyxCiIGh22QIDAQABMA0GCSqGSIb3
+| DQEBCwUAA4IBAQCzhJu52dIY7V/qQleDMEQ1oBLrQoFhHD6+UbvH0ELMAtL5Dc8A
+| LGDdyFkgsx04TaZtJ20dyrjYD+tcAgu9Yb7eEYbfqqD5w4XSzvdEuTW2aVL86aT6
+| IBbN8SMkX2zfILjHTOR1F7WAoHaIssH0yZltg+lQEEnAeb+XoIZm9cIW2bTNKoO2
+| MeHgvSKkQkjROO29XQQ3mTbxFG86UsTwyGHdddnkfiWilXqgfh+wGxbY/wCdhU0C
+| TnuXn4IEVdCBn16rCg51kEZZC1EWPcJpv0/InUNfcgumcVY033EXF/HgW4eNDD6H
+| XmLEGKfScUWcO0//STDZGZXwf9gt30DqoMSf
+|_-----END CERTIFICATE-----
+| tls-alpn: 
+|_  http/1.1
+51337/tcp open  ssl/http syn-ack Apache httpd 2.4.41
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+|_http-title: 400 Bad Request
+| ssl-cert: Subject: commonName=leakchecker.grep.thm/organizationName=Internet Widgits Pty Ltd/stateOrProvinceName=Some-State/countryName=AU
+| Issuer: commonName=leakchecker.grep.thm/organizationName=Internet Widgits Pty Ltd/stateOrProvinceName=Some-State/countryName=AU
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2023-06-14T12:58:31
+| Not valid after:  2024-06-13T12:58:31
+| MD5:   d9a2 b1f1 2ddd d1d5 f54f 98f4 d797 fd6a
+| SHA-1: 3f70 53de 354b d41c 1d09 00b3 b603 3c55 b0dc 1390
+| -----BEGIN CERTIFICATE-----
+| MIIDTzCCAjcCFCzf/mtdaBGiKKpO7gdtpdVG9u6iMA0GCSqGSIb3DQEBCwUAMGQx
+| CzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRl
+| cm5ldCBXaWRnaXRzIFB0eSBMdGQxHTAbBgNVBAMMFGxlYWtjaGVja2VyLmdyZXAu
+| dGhtMB4XDTIzMDYxNDEyNTgzMVoXDTI0MDYxMzEyNTgzMVowZDELMAkGA1UEBhMC
+| QVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoMGEludGVybmV0IFdpZGdp
+| dHMgUHR5IEx0ZDEdMBsGA1UEAwwUbGVha2NoZWNrZXIuZ3JlcC50aG0wggEiMA0G
+| CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC2IM3DBj0hHYcAMzLoJEDCI8fSzx0g
+| 4UY+ttgJsvN8MohZRGVzPM6WaCmxw39gcem3o/nLBQ8sacwre6RhqDvFNRiX6+aV
+| 51OcP2h5ucnqoPB4UXB1nyHKwhPK8LIaCpxjnYkTacG1U2Pr8vXqJnrQoqSjyik2
+| xMTkhiP+xS0+w7F42JXeiqk5R4q1klufsqyx3goHCdGpNJSVeU9fN5GKkCJblJll
+| ejorhh4tWG1eUs+09awwLR+PXoMMO3EuVma+7cnmj16Cn95Glaa8pYhopDntjQwo
+| Hz+CyjwXHFc2JFj02u7QLcMJRtz/FfLBD2kga39eKv75peHLEKIgaHbZAgMBAAEw
+| DQYJKoZIhvcNAQELBQADggEBAJIlfMmC0KqBPG7/54bkNknBCo+z6ck1oAOmHqrj
+| IPUSCvSomgP/wuXuzOlspp9Qta8hA3DM+L0Q4/jE5Jt+IXU2TeBgvFsZx3IJGipf
+| /LyO8C2MzoKWXO3CwP8WIREzCckaSZIXsrBMixWzKoGnLxl/zvYmhM00C8aJ/8cf
+| 3gsVcFtiuudzfctad7a5gzcSGLhkATZTcuFDto3uzC4LszSXr8WiFBcSGbwyBkY9
+| VZOfpN/kbjmxZIUXovF9BwHY9GWbDauuAkyCD4caUbbq7wdfTFH0A8lSw0ggzvzK
+| hn9+V7DBwrPr4Y/gdkrUP6zWMZWnPybIYsmvbo2aKi9UJ+8=
+|_-----END CERTIFICATE-----
+| tls-alpn: 
+|_  http/1.1
+Service Info: Host: ip-10-10-250-61.eu-west-1.compute.internal; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
 ## Website
