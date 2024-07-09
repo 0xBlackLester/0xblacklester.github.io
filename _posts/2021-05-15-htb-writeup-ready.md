@@ -10,13 +10,12 @@ header:
   icon: /assets/images/hackthebox.webp
 categories:
   - hackthebox
-  - infosec
 tags:
   - linux
-  - gitlab
+  - apache
   - cve
-  - docker
-  - privileged container
+  - privesc
+  - easy
 ---
 
 ![](/assets/images/htb-writeup-ready/ready_logo.png)
@@ -44,7 +43,7 @@ Service Info: Host: 127.0.1.1; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 ## Sitio web
 
-Ahora que ya conocemos los puertos abiertos que se ejecutan pasaremos a inspeccionar el sitio web, apartados, subapartados, etc.
+Ahora que ya conocemos los puertos abiertos que se ejecutan pasaremos a inspeccionar el sitio web, apartados, subapartados, etc. Es importante destacar que para acceder al sitio web debemos añadir la IP al fichero ```/etc/hosts```
 
 ![](/assets/images/htb-writeup-ready/index.png)
 
