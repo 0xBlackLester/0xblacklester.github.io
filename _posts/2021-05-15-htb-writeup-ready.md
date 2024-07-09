@@ -46,7 +46,7 @@ Service Info: Host: 127.0.1.1; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Ahora que ya sabemos los puertos abiertos que se ejecutan pasaremos a inspeccionar el sitio web, apartados, subapartados, etc.
 
-![](/assets/images/htb-writeup-ready/gitlab1.png)
+![](/assets/images/htb-writeup-ready/index.png)
 
 We have access to create a new account.
 
