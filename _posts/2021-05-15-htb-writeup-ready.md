@@ -23,33 +23,28 @@ tags:
 
 Ready was a pretty straighforward box to get an initial shell on: We identify that's it running a vulnerable instance of Gitlab and we use an exploit against version 11.4.7 to land a shell. Once inside, we quickly figure out we're in a container and by looking at the docker compose file we can see the container is running in privileged mode. We then mount the host filesystem within the container then we can access the flag or add our SSH keys to the host root user home directory.
 
-## Portscan
+## Escaneo de puertos (NMAP)
 
 ```
-sudo nmap -T4 -sC -sV -oA scan -p- 10.129.149.31
-Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-09 22:41 EDT
-Nmap scan report for 10.129.149.31
-Host is up (0.015s latency).
+# Nmap 7.80 scan initiated Tue Jul  9 11:33:17 2024 as: nmap -sCV -p- --open -vvv -oN allports.txt 10.10.11.23
+Nmap scan report for 10.10.11.23
+Host is up, received syn-ack (0.046s latency).
+Scanned at 2024-07-09 11:33:18 CEST for 23s
 Not shown: 65533 closed ports
-PORT     STATE SERVICE VERSION
-22/tcp   open  ssh     OpenSSH 8.2p1 Ubuntu 4 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey: 
-|   3072 48:ad:d5:b8:3a:9f:bc:be:f7:e8:20:1e:f6:bf:de:ae (RSA)
-|   256 b7:89:6c:0b:20:ed:49:b2:c1:86:7c:29:92:74:1c:1f (ECDSA)
-|_  256 18:cd:9d:08:a6:21:a8:b8:b6:f7:9f:8d:40:51:54:fb (ED25519)
-5080/tcp open  http    nginx
-| http-robots.txt: 53 disallowed entries (15 shown)
-| / /autocomplete/users /search /api /admin /profile 
-| /dashboard /projects/new /groups/new /groups/*/edit /users /help 
-|_/s/ /snippets/new /snippets/*/edit
-| http-title: Sign in \xC2\xB7 GitLab
-|_Requested resource was http://10.129.149.31:5080/users/sign_in
-|_http-trane-info: Problem with XML parsing of /evox/about
+Reason: 65533 conn-refused
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 8.9p1 Ubuntu 3ubuntu0.10 (Ubuntu Linux; protocol 2.0)
+80/tcp open  http    syn-ack Apache httpd 2.4.52
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.52 (Ubuntu)
+|_http-title: Did not follow redirect to http://permx.htb
+Service Info: Host: 127.0.1.1; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
-## Gitlab
+## Sitio web
 
-The webserver on port 5080 runs a Gitlab instance.
+Ahora que ya sabemos los puertos abiertos que se ejecutan pasaremos a inspeccionar el sitio web, apartados, subapartados, etc.
 
 ![](/assets/images/htb-writeup-ready/gitlab1.png)
 
