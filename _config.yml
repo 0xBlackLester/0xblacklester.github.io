@@ -19,7 +19,7 @@ locale                   : "es-ES"
 title                    : "Inicio - 0xBlackLester"
 title_separator          : "-"
 name                     : "0xBlackLester"
-description              : "Posts about security, CTFs and networking"
+description              : "Publicaciones sobre ciberseguridad, CTFs y redes"
 url                      : "https://0xblacklester.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "slemire/slemire.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -101,9 +101,9 @@ analytics:
 
 # Site Author
 author:
-  name             : "Javier Sánchez                         (0xBlackLester)"
+  name             : "Javier Sánchez<br>(0xBlackLester)"
   avatar           : "/assets/images/avatar.png"
-  bio              : "Pentester, CTF player<br>HackTheBox ATeam"
+  bio              : "Administración de Sistemas Informáticos en Red"
   location         : "España"
   #email            : "info@snowscan.io"
   uri              :
