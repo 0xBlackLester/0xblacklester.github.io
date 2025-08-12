@@ -107,7 +107,7 @@ author:
   location         : "España"
   #email            : "info@snowscan.io"
   uri              :
-  home             : # null (default), "absolute or relative url to link to author home"
+  inicio             : # null (default), "absolute or relative url to link to author home"
   bitbucket        :
   codepen          :
   dribbble         :
