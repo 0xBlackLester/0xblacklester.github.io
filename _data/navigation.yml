@@ -2,10 +2,10 @@ main:
   - title: "Inicio"
     url: /
   - title: "Publicaciones"
-    url: /year-archive/
+    url: /publicaciones/
   - title: "Categorias"
-    url: /categories/
+    url: /categorias/
   - title: "Etiquetas"
-    url: /tags/
+    url: /etiquetas/
   - title: "Sobre mi"
-    url: /about/
+    url: /sobre/
