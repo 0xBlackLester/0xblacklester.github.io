@@ -5,7 +5,6 @@ excerpt: "Delivery is a quick and fun easy box where we have to create a MatterM
 date: 2025-08-14
 classes: wide
 header:
-  teaser: /assets/images/thm-writeup-colddbox/colddbox.png
   teaser_home_page: true
   icon: /assets/images/thm.webp
 categories:
