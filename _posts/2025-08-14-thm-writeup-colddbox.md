@@ -7,7 +7,7 @@ classes: wide
 header:
   teaser: /assets/images/thm-writeup-colddbox/colddbox.png
   teaser_home_page: true
-  icon: /assets/images/thm.png
+  icon: /assets/images/thm.webp
 categories:
   - tryhackme
 tags:  
