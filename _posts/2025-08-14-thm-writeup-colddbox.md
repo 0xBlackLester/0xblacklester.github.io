@@ -21,7 +21,7 @@ tags:
 
 Delivery is a quick and fun easy box where we have to create a MatterMost account and validate it by using automatic email accounts created by the OsTicket application. The admins on this platform have very poor security practices and put plaintext credentials in MatterMost. Once we get the initial shell with the creds from MatterMost we'll poke around MySQL and get a root password bcrypt hash. Using a hint left in the MatterMost channel about the password being a variation of PleaseSubscribe!, we'll use hashcat combined with rules to crack the password then get the root shell.
 
-## Portscan
+## Escaneo de puertos
 
 ```
 Nmap scan report for 10.129.148.141
@@ -62,7 +62,7 @@ PORT     STATE SERVICE VERSION
 |_    Content-Length: 0
 ```
 
-## Website
+## Página web
 
 The Delivery website is pretty basic, there's a link to a vhost called helpdesk.delivery.htb and a contact us section. We'll add this entry to our local host before proceeding further.
 
