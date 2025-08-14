@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "ColddBox: Easy - TryHackMe"
-excerpt: "ColddBox es una máquina de nivel principiante, en este WriteUp aprenderás a resolverla y entraremos en detalle en cada uno de los apartados."
+excerpt: "ColddBox, tomalo como una empresa la cual dispone de sitio web como la gran mayoria. Nosotros como antiguos clientes de la empresa no estamos conformes con la atención proporcionada, entonces... es hora de utilizar nuestras habilidades de Hacking Etico para comprometer el sitio web."
 date: 2025-08-14
 classes: wide
 header:
