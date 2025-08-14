@@ -8,12 +8,13 @@ header:
   teaser_home_page: true
   icon: /assets/images/thm.webp
 categories:
-  - tryhackme
+  - TryHackMe
 tags:  
-  - wordpress
-  - bruteforce
-  - ejptv2
-  - privesc
+  - Easy
+  - WordPress
+  - BruteForce
+  - eJPTv2
+  - PrivEsc
 ---
 
 ![](/assets/images/htb-writeup-delivery/delivery_logo.png)
