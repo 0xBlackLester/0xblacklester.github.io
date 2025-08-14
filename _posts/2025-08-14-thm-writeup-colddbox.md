@@ -19,7 +19,7 @@ tags:
 
 ![](/assets/images/thm-writeup-colddbox/colddbox_logo.png)
 
-Como hemos comentado antes, vamos a comprometer el servidor de ColddBox. En esta máquina usaremos técnicas de enumeración y ataques de fuerza bruta para extraer usuarios y contraseñas del panel de login, también modificaremos archivos para obtener una reverse shell del lado del servidor y acceder desde una shell interactiva. Para la escalada de privilegios nos bastará con una simple enumeración binarios para comprobar sus permisos.
+Como hemos comentado antes, vamos a comprometer el servidor de ColddBox. En esta máquina usaremos técnicas de enumeración y ataques de fuerza bruta para extraer usuarios y contraseñas del panel de login, también modificaremos archivos para obtener una reverse shell del lado del servidor y acceder desde una shell interactiva. Para la escalada de privilegios nos bastará con una simple enumeración de binarios para comprobar sus permisos.
 
 ## Escaneo de puertos
 
