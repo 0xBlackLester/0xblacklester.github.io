@@ -13,7 +13,7 @@ Desde siempre me ha gustado ver el como se han hecho las cosas, de pequeño siem
 hecha la escena, luego de verla me ponia a ver el Making-Of. Siempre he estado en vínculo con la tecnología, ya sea editando videos o
 grabando tutoriales de instalación de cualquier programa. Gracias a mi curiosidad a cerca de como están construidas las cosas por detrás
 y a mi vínculo tecnológico conocí la ciberseguridad. Actualmente estoy en camino a sacarme la certificación eJPTv2 y me ayudo grabando
-videos resolviendo CTFs, escribiendo en mi blog y enseándo mis propias pruebas de pentesting.
+videos resolviendo CTFs, escribiendo en mi blog y enseñando mis propias pruebas de pentesting.
 
 ## Herramientas creadas
 A continuación mostraré las herramientas que a día de hoy he creado por mi cuenta:
