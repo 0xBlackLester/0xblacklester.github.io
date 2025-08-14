@@ -64,53 +64,70 @@ PORT     STATE SERVICE VERSION
 
 ## Página web
 
-The Delivery website is pretty basic, there's a link to a vhost called helpdesk.delivery.htb and a contact us section. We'll add this entry to our local host before proceeding further.
+La web de ColddBox a primera vista no tiene nada que llame la atención, de todas formas estuve investigando cada apartado del sitio web.
 
 ![](/assets/images/htb-writeup-delivery/website1.png)
 
-The contact us section tells us we need an @delivery.htb email address and tells us port 8065 is a MatterMost server. MatterMost is a Slack-like collaboration platform that can be self-hosted.
+Podemos aplicar fuzzing para encontrar directorios ocultos, encontramos '/wp-admin' y '/hidden'.
 
 ![](/assets/images/htb-writeup-delivery/website2.png)
 
-Browsing to port 8065 we get the MatterMost login page but we don't have credentials yet
+Accedemos a '/hidden' y encontramos 3 posibles usuarios que podríamos usar para hacer fuerza bruta posteriormente. La página señala que 'c0ldd' le ha cambiado la contraseña a 'Hugo', lo que da a entender que 'c0ldd' es un posible administrador.
+
+![](/assets/images/htb-writeup-delivery/website2.png)
+
+Accedemos a '/wp-admin' y probamos el usuario 'c0ldd' con una contraseña aleatoria, ya que si en WordPress ingresamos un usuario y ese usuario existe pero la contraseña es incorrecta nos va a decir que la contraseña es incorrecta, sin embargo, no dice nada del usuario. Si pusiesemos un usuario incorrecto y una contraseña incorrecta nos diría que el usuario y contraseña no son validos.
 
 ![](/assets/images/htb-writeup-delivery/mm1.png)
 
-## Helpdesk
+## WPScan - Fuerza bruta
 
-The Helpdesk page uses the OsTicket web application. It allows users to create and view the status of ticket.
+Ya hemos encontrado un usuario por lo que no haría falta enumerar usuarios con la herrmamienta wpscan, en este caso con el comando `sudo wpscan -u http://10.10.10.10/ --username c0ldd -w /usr/share/wordlists/rockyou.txt
+` aplicariamos fuerza bruta al usuario correspondiente y en cuestión de segundos nos reporta la contraseña del usuario.
 
 ![](/assets/images/htb-writeup-delivery/helpdesk3.png)
 
-We can still open new tickets even if we only have a guest user.
+Ahora que tenemos las credenciales vamos a ingresarlas en el panel de login de WordPress.
 
 ![](/assets/images/htb-writeup-delivery/helpdesk1.png)
 
-After a ticket has been created, the system generates a random @delivery.htb email account with the ticket ID.
+¡Bien! Ya estamos dentro del panel de administración del sitio web.
 
 ![](/assets/images/htb-writeup-delivery/helpdesk2.png)
 
-Now that we have an email account we can create a MatterMost account.
+Si desde el menú de la izquierda accedemos a '*Appearance*' y '*Editor*' nos salen una lista de archivos template.
 
 ![](/assets/images/htb-writeup-delivery/mm2.png)
 
-A confirmation email is then sent to our ticket status inbox.
+Entre tantos archivos podemos encontrar un '404.php' el cual podemos tratar de explotar cambiando el contenido del archivo por una reverse shell de pentestmonkey.
 
 ![](/assets/images/htb-writeup-delivery/mm3.png)
 
-We use the check ticket function on the OsTicket application and submit the original email address we used when creating the ticket and the ticket ID.
+Desde consola nos ponemos en escucha por el puerto que hayamos proporcionado anteriormente.
 
 ![](/assets/images/htb-writeup-delivery/mm4.png)
 
-We're now logged in and we see that the MatterMost confirmation email has been added to the ticket information.
+Ya tenemos todo preparado para obtener una shell inversa, desde el navegador ingresaremos al fichero .php cuyo contenido trae un payload, a este archivo se accede desde la ruta `10.10.10.10/wp-content/themes/twentyfifteen/404.php`.
 
 ![](/assets/images/htb-writeup-delivery/mm5.png)
 
-To confirm the creation of our account we'll just copy/paste the included link into a browser new tab.
+Si se te queda cargando, vas por buen camino, no toques nada, ahora volvemos a la consola y podemos ver como ya estamos dentro del servidor.
 
 ![](/assets/images/htb-writeup-delivery/mm6.png)
 
-After logging in to MatterMost we have access to the Internal channel where we see that credentials have been posted. There's also a hint that we'll have to use a variation of the `PleaseSubscribe!` password later.
+Con el usuario en el que nos encontramos no tenemos privilegios ni si quiera para leer la primera flag.
+
+![](/assets/images/htb-writeup-delivery/mm7.png)
+
+Necesitamos escalar privilegios a 'c0ldd', investigando cada una de las carpetas y archivos encontramos un archivo de configuración de WordPress dentro de '/var/www/html/'. Si leemos el archivo wp-config.php vemos la contraseña del usuario 'c0ldd'.
+
+![](/assets/images/htb-writeup-delivery/mm7.png)
+
+Vamos a probar a acceder al otro usuario desde SSH.
+
+![](/assets/images/htb-writeup-delivery/mm7.png)
+
+Ahora ya estamos en otro usuario y podemos acceder a recursos que anteriormente no podiamos, vamos a leer la primera flag.
 
 ![](/assets/images/htb-writeup-delivery/mm7.png)
 
