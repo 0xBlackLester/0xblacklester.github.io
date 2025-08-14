@@ -18,4 +18,4 @@ videos resolviendo CTFs, escribiendo en mi blog y enseándo mis propias pruebas 
 ## Herramientas creadas
 A continuación mostraré las herramientas que a día de hoy he creado por mi cuenta:
 
-- [HDiscovery](https://github.com/0xBlackLester/HDiscovery) Herramienta en bash la cual en base al TTL del host muestra el sistema operativo, esto resulta útil en CTFs.
+- [HDiscovery](https://github.com/0xBlackLester/HDiscovery)-> Herramienta en bash la cual en base al TTL del host muestra el sistema operativo, esto resulta útil en CTFs.
