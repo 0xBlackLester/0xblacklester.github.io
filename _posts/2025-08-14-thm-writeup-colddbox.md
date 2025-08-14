@@ -131,9 +131,17 @@ Ahora ya estamos en otro usuario y podemos acceder a recursos que anteriormente 
 
 ![](/assets/images/htb-writeup-delivery/mm7.png)
 
-## User shell
+## Escalada de privilegios
 
-With the `maildeliverer / Youve_G0t_Mail!` credentials we can SSH in and get the user flag.
+Una vez hemos accedido a un usuario del sistema y conseguimos la flag de usuario, podemos ir a por el usuario root, podemos probar desde buscar permisos SUID a binarios con permisos SUDO.
+
+![](/assets/images/htb-writeup-delivery/user.png)
+
+Con `sudo -l` podemos ver que binarios o scripts podemos ejecutar como administrador, el problema es que hay algunos binarios que pueden ser explotados por un atacante.
+
+![](/assets/images/htb-writeup-delivery/user.png)
+
+Nos salen varios binarios, desde la web 'https://gtfobins.github.io/' podemos buscar cada binario y ver si son explotables, en este caso vamos a utilizar el binario VIM para escalar privilegios.
 
 ![](/assets/images/htb-writeup-delivery/user.png)
 
