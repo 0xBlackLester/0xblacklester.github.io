@@ -1,17 +1,17 @@
 ---
 layout: single
-title: "ColddBox: Easy - TryHackMe"
-excerpt: "ColddBox, tomalo como una empresa la cual dispone de sitio web como la gran mayoria. Nosotros como antiguos clientes de la empresa no estamos conformes con la atención proporcionada, entonces... es hora de utilizar nuestras habilidades de Hacking Etico para comprometer el sitio web."
+title: "Dragon: Easy - TheHackersLabs"
+excerpt: "Dragon, así es el nombre de una página web la cual nos pone un simple reto: comprometer su sistema. Ellos mismos saben que han contratado desarrolladores principiantes, por lo que no deberían confiarse, es hora de ponernos manos a la obra y demostrar de que estamos hechos 💪."
 date: 2025-08-14
 classes: wide
 header:
   teaser_home_page: true
   icon: /assets/images/thm.webp
 categories:
-  - TryHackMe
+  - TheHackersLabs
 tags:  
   - Easy
-  - WordPress
+  - Hydra
   - BruteForce
   - eJPTv2
   - PrivEsc
@@ -24,42 +24,30 @@ Como hemos comentado antes, vamos a comprometer el servidor de ColddBox. En esta
 ## Escaneo de puertos
 
 ```
-Nmap scan report for 10.129.148.141
-Host is up (0.018s latency).
-Not shown: 65532 closed ports
-PORT     STATE SERVICE VERSION
-22/tcp   open  ssh     OpenSSH 7.9p1 Debian 10+deb10u2 (protocol 2.0)
+# Nmap 7.94SVN scan initiated Tue Oct 14 01:00:11 2025 as: nmap -p- --open -sS -sCV --min-rate=5000 -n -Pn -vvv -oN allports.txt 192.168.1.241
+Nmap scan report for 192.168.1.241
+Host is up, received arp-response (0.0027s latency).
+Scanned at 2025-10-14 01:00:12 CEST for 42s
+Not shown: 41330 filtered tcp ports (no-response), 24203 closed tcp ports (reset)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT   STATE SERVICE REASON         VERSION
+22/tcp open  ssh     syn-ack ttl 64 OpenSSH 9.6p1 Ubuntu 3ubuntu13.13 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey: 
-|   2048 9c:40:fa:85:9b:01:ac:ac:0e:bc:0c:19:51:8a:ee:27 (RSA)
-|   256 5a:0c:c0:3b:9b:76:55:2e:6e:c4:f4:b9:5d:76:17:09 (ECDSA)
-|_  256 b7:9d:f7:48:9d:a2:f2:76:30:fd:42:d3:35:3a:80:8c (ED25519)
-80/tcp   open  http    nginx 1.14.2
-|_http-server-header: nginx/1.14.2
-|_http-title: Welcome
-8065/tcp open  unknown
-| fingerprint-strings: 
-|   GenericLines, Help, RTSPRequest, SSLSessionReq, TerminalServerCookie: 
-|     HTTP/1.1 400 Bad Request
-|     Content-Type: text/plain; charset=utf-8
-|     Connection: close
-|     Request
-|   GetRequest: 
-|     HTTP/1.0 200 OK
-|     Accept-Ranges: bytes
-|     Cache-Control: no-cache, max-age=31556926, public
-|     Content-Length: 3108
-|     Content-Security-Policy: frame-ancestors 'self'; script-src 'self' cdn.rudderlabs.com
-|     Content-Type: text/html; charset=utf-8
-|     Last-Modified: Sun, 09 May 2021 00:00:02 GMT
-|     X-Frame-Options: SAMEORIGIN
-|     X-Request-Id: fqrpd5m3ftgnzmxkbieezqadxo
-|     X-Version-Id: 5.30.0.5.30.1.57fb31b889bf81d99d8af8176d4bbaaa.false
-|     Date: Sun, 09 May 2021 00:01:31 GMT
-|     <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0"><meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer"><title>Mattermost</title><meta name="mobile-web-app-capable" content="yes"><meta name="application-name" content="Mattermost"><meta name="format-detection" content="telephone=no"><link re
-|   HTTPOptions: 
-|     HTTP/1.0 405 Method Not Allowed
-|     Date: Sun, 09 May 2021 00:01:31 GMT
-|_    Content-Length: 0
+|   256 3e:98:c6:f1:55:e6:30:8b:83:c4:69:60:d9:ed:11:4d (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLRB0bNFpMig2oGPoN2EWsh1Ximm6bDgZu/Z9O0twiunyN9X/pMOAC2J9gxyQYQwRu7ey4QtLD4qSFx9PMW1mWc=
+|   256 b5:d2:46:75:32:b0:98:b2:8f:61:02:95:cf:ba:19:c6 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmNTndfAjNjQW4vXgoZ0sV+DLTbr9TdMa0mYQDPsstr
+80/tcp open  http    syn-ack ttl 64 Apache httpd 2.4.58 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: HEAD GET POST OPTIONS
+|_http-title: La M\xC3\xA1quina del Drag\xC3\xB3n
+|_http-server-header: Apache/2.4.58 (Ubuntu)
+MAC Address: 08:00:27:F0:F3:DB (Oracle VirtualBox virtual NIC)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Tue Oct 14 01:00:54 2025 -- 1 IP address (1 host up) scanned in 43.22 seconds
 ```
 
 ## Página web
