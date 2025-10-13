@@ -51,17 +51,17 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 ## Página web
 
-La web de ColddBox a primera vista no tiene nada que llame la atención, de todas formas estuve investigando cada apartado del sitio web.
+La web no muestra ningún menú desplegable ni apartados donde podamos navegar a simple vista con la página, lo que podemos observar es el texto que nos muestra por pantalla, nos deja caer que hay algun directorio/archivo oculto y que la forma de navegar por la web no siempre es como esta acostumbrado un simple usuario.
 
-![](/assets/images/htb-writeup-delivery/website1.png)
+![](/assets/images/thl-writeup-dragon/1.png)
 
-Podemos aplicar fuzzing para encontrar directorios ocultos, encontramos '/wp-admin' y '/hidden'.
+Podemos aplicar fuzzing para encontrar directorios ocultos, utilizando la herramienta gobuster encontramos '/secret'.
 
-![](/assets/images/htb-writeup-delivery/website2.png)
+![](/assets/images/thl-writeup-dragon/2.png)
 
-Accedemos a '/hidden' y encontramos 3 posibles usuarios que podríamos usar para hacer fuerza bruta posteriormente. La página señala que 'c0ldd' le ha cambiado la contraseña a 'Hugo', lo que da a entender que 'c0ldd' es un posible administrador.
+Accedemos a '/secret' y encontramos 3 posibles usuarios que podríamos usar para hacer fuerza bruta posteriormente. La página señala que 'c0ldd' le ha cambiado la contraseña a 'Hugo', lo que da a entender que 'c0ldd' es un posible administrador.
 
-![](/assets/images/htb-writeup-delivery/website2.png)
+![](/assets/images/thl-writeup-dragon/3.png)
 
 Accedemos a '/wp-admin' y probamos el usuario 'c0ldd' con una contraseña aleatoria, ya que si en WordPress ingresamos un usuario y ese usuario existe pero la contraseña es incorrecta nos va a decir que la contraseña es incorrecta, sin embargo, no dice nada del usuario. Si pusiesemos un usuario incorrecto y una contraseña incorrecta nos diría que el usuario y contraseña no son validos.
 
