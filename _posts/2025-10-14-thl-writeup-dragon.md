@@ -19,7 +19,7 @@ tags:
 
 ![](/assets/images/thm-writeup-colddbox/colddbox_logo.png)
 
-Hoy os traigo una de las máquinas más sencillas que podemos encontrar, 
+Hoy os traigo una máquina de nivel principiante l
 
 ## Escaneo de puertos
 
