@@ -11,7 +11,6 @@ categories:
   - TheHackersLabs
 tags:  
   - Easy
-  - Hydra
   - BruteForce
   - eJPTv2
   - PrivEsc
@@ -19,7 +18,7 @@ tags:
 
 ![](/assets/images/thm-writeup-colddbox/colddbox_logo.png)
 
-Hoy os traigo una máquina de nivel principiante l
+En esta máquina utilizaremos técnicas de enumeración y ataques de fuerza bruta para extraer contraseñas de determinados servicios, una vez hayamos logrado acceder a la máquina tendremos que escalar privilegios al usuario root. Esta escalada se va a realizar de forma rápida ya que apenas utilizando técnicas sencillas de escalada de privilegios lograremos acceder como root.
 
 ## Escaneo de puertos
 
