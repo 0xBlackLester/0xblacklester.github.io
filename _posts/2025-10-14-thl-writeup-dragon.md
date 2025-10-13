@@ -2,7 +2,7 @@
 layout: single
 title: "Dragon: Easy - TheHackersLabs"
 excerpt: "Dragon, así es el nombre de una página web la cual nos pone un simple reto: comprometer su sistema. Ellos mismos saben que han contratado desarrolladores principiantes, por lo que no deberían confiarse, es hora de ponernos manos a la obra y demostrar de que estamos hechos 💪."
-date: 2025-08-14
+date: 2025-10-14
 classes: wide
 header:
   teaser_home_page: true
@@ -19,7 +19,7 @@ tags:
 
 ![](/assets/images/thm-writeup-colddbox/colddbox_logo.png)
 
-Como hemos comentado antes, vamos a comprometer el servidor de ColddBox. En esta máquina usaremos técnicas de enumeración y ataques de fuerza bruta para extraer usuarios y contraseñas del panel de login, también modificaremos archivos para obtener una reverse shell del lado del servidor y acceder desde una shell interactiva. Para la escalada de privilegios nos bastará con una simple enumeración de binarios para comprobar sus permisos.
+Hoy os traigo una de las máquinas más sencillas que podemos encontrar, 
 
 ## Escaneo de puertos
 
