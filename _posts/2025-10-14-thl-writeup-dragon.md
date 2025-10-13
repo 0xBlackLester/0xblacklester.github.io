@@ -2,7 +2,7 @@
 layout: single
 title: "Dragon: Easy - TheHackersLabs"
 excerpt: "Dragon, así es el nombre de una página web la cual nos pone un simple reto: comprometer su sistema. Ellos mismos saben que han contratado desarrolladores principiantes, por lo que no deberían confiarse, es hora de ponernos manos a la obra y demostrar de que estamos hechos."
-date: 2025-10-14
+date: 2025-08-14
 classes: wide
 header:
   teaser_home_page: true
