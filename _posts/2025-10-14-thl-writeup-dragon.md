@@ -93,6 +93,6 @@ Si copiamos el comando que nos proporciona y lo pegamos en la terminal ganaremos
 
 ![](/assets/images/thl-writeup-dragon/9.png)
 
-Una vez somos root podemos movernos libremente por el sistema, a nosotros nos interesa conseguir la flag de root la cual se almacena dentro de la carpeta '/root/'
+Una vez somos root podemos movernos libremente por el sistema, a nosotros nos interesa conseguir la flag de root la cual se almacena dentro de la carpeta '/root/'.
 
 ![](/assets/images/thl-writeup-dragon/10.png)
