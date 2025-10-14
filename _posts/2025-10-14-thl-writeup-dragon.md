@@ -59,20 +59,15 @@ Podemos aplicar fuzzing para encontrar directorios ocultos, utilizando la herram
 
 ![](/assets/images/thl-writeup-dragon/2.png)
 
-Accedemos a '/secret' y encontramos 3 posibles usuarios que podríamos usar para hacer fuerza bruta posteriormente. La página señala que 'c0ldd' le ha cambiado la contraseña a 'Hugo', lo que da a entender que 'c0ldd' es un posible administrador.
+Accedemos a '/secret' y a simple vista no encontramos nada interesante, pero si leemos el texto que muestra dice que intentemos sin pausa las llaves del dragon, además aclara que el mensaje va dedicado a Dragon, me dió a entender que está hablando de un ataque de fuerza bruta.
 
 ![](/assets/images/thl-writeup-dragon/3.png)
 
-Accedemos a '/wp-admin' y probamos el usuario 'c0ldd' con una contraseña aleatoria, ya que si en WordPress ingresamos un usuario y ese usuario existe pero la contraseña es incorrecta nos va a decir que la contraseña es incorrecta, sin embargo, no dice nada del usuario. Si pusiesemos un usuario incorrecto y una contraseña incorrecta nos diría que el usuario y contraseña no son validos.
+## Hydra - Fuerza bruta
 
-![](/assets/images/htb-writeup-delivery/mm1.png)
+A pesar de que intenté encontrar más directorios o archivos dentro del directorio '/secret' no logré encontrar ninguno mas, pero teniendo una posible pista y sabiendo que un posible usuario se llama dragon, intenté realizar un ataque de fuerza bruta con hydra, así resultando exitoso.
 
-## WPScan - Fuerza bruta
-
-Ya hemos encontrado un usuario por lo que no haría falta enumerar usuarios con la herrmamienta wpscan, en este caso con el comando `sudo wpscan -u http://10.10.10.10/ --username c0ldd -w /usr/share/wordlists/rockyou.txt
-` aplicariamos fuerza bruta al usuario correspondiente y en cuestión de segundos nos reporta la contraseña del usuario.
-
-![](/assets/images/htb-writeup-delivery/helpdesk3.png)
+![](/assets/images/thl-writeup-dragon/4.png)
 
 Ahora que tenemos las credenciales vamos a ingresarlas en el panel de login de WordPress.
 
