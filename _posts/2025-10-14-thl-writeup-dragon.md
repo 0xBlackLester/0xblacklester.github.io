@@ -16,7 +16,7 @@ tags:
   - PrivEsc
 ---
 
-![](/assets/images/thm-writeup-colddbox/colddbox_logo.png)
+![](/assets/images/thl-writeup-dragon/banner.png)
 
 En esta máquina utilizaremos técnicas de enumeración y ataques de fuerza bruta para extraer contraseñas de determinados servicios, una vez hayamos logrado acceder a la máquina tendremos que escalar privilegios al usuario root. Esta escalada se va a realizar de forma rápida ya que apenas utilizando técnicas sencillas de escalada de privilegios lograremos acceder como root.
 
