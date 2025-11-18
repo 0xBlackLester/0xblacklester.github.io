@@ -1,4 +1,4 @@
-<img width="1939" height="952" alt="image" src="https://github.com/user-attachments/assets/11f12598-f221-4bf5-9d57-a516d1287167" /><img width="1923" height="946" alt="image" src="https://github.com/user-attachments/assets/57362ecb-4e8d-4f08-9b9b-38d0acbac411" />---
+---
 layout: single
 title: "Uploader: Easy - TheHackersLabs"
 excerpt: "Uploader, un sitio web el cual ofrece almacenamiento en la nube a cualquier usuario que acceda a ella sin necesidad de registrarse previamente, no solo no saben hacer páginas web, si no que además ponen en peligro a los usuarios que utilicen su servicio. Es hora de darles una lección."
