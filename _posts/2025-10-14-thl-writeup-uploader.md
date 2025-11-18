@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Uploader: Easy - TheHackersLabs"
-excerpt: "ColddBox, tomalo como una empresa la cual dispone de sitio web como la gran mayoria. Nosotros como antiguos clientes de la empresa no estamos conformes con la atención proporcionada, entonces... es hora de utilizar nuestras habilidades de Hacking Etico para comprometer el sitio web."
+excerpt: "Uploader, un sitio web el cual ofrece almacenamiento en la nube a cualquier usuario que acceda a ella sin necesidad de registrarse previamente, no solo no saben hacer páginas web, si no que además ponen en peligro a los usuarios que utilicen su servicio. Es hora de darles una lección."
 date: 2025-08-14
 classes: wide
 header:
