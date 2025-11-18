@@ -120,9 +120,7 @@ Ahora ya estamos en otro usuario y podemos acceder a recursos que anteriormente 
 
 ## Escalada de privilegios
 
-Una vez hemos accedido al usuario y conseguimos la flag de usuario, debemos ir a por el usuario root, podemos probar desde buscar permisos SUID a binarios con permisos SUDO, también existen distintas técnicas más pero no se va a dar el caso en esta máquina.
-
-Probamos con `sudo -l` y podemos observar que binarios o scripts podemos ejecutar como administrador.
+Una vez hemos accedido al usuario y conseguimos la flag de usuario, debemos ir a por el usuario root, podemos probar desde buscar permisos SUID a binarios con permisos SUDO, también existen distintas técnicas más pero no se va a dar el caso en esta máquina. Probamos con `sudo -l` y podemos observar que binarios o scripts podemos ejecutar como administrador.
 
 ![](/assets/images/thl-writeup-uploader/19.png)
 
