@@ -102,11 +102,7 @@ Una herramienta util para crackear contraseñas de los .zip es *zip2john*, el cu
 
 ![](/assets/images/thl-writeup-uploader/14.png)
 
-Ya tenemos la contraseña, ahora con el comando `7z x File.zip` descomprimimos el archivo poniendo la contraseña que acabamos de crackear. Ya podemos ver el fichero que antes estaba encriptado, si lo leemos vemos un usuario y un hash.
-
-![](/assets/images/thl-writeup-uploader/15.png)
-
-Este hash lo podemos poner en [https://crackstation.net]*crackstation.net* y nos devolverá la contraseña en texto plano.
+Ya tenemos la contraseña, ahora con el comando `7z x File.zip` descomprimimos el archivo poniendo la contraseña que acabamos de crackear. Ya podemos ver el fichero que antes estaba encriptado, si lo leemos vemos un usuario y un hash. Este hash lo podemos poner en [https://crackstation.net] y nos devolverá la contraseña en texto plano.
 
 ![](/assets/images/thl-writeup-uploader/16.png)
 
