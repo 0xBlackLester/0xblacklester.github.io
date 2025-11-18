@@ -106,7 +106,7 @@ Ya tenemos la contraseña, ahora con el comando `7z x File.zip` descomprimimos e
 
 ![](/assets/images/thl-writeup-uploader/16.png)
 
-Vamos a probar a acceder al otro desde www-data con el comando 'su operatorx'.
+Vamos a probar a acceder al otro usuario desde www-data con el comando 'su operatorx'.
 
 ![](/assets/images/thl-writeup-uploader/17.png)
 
