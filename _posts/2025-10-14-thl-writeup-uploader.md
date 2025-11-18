@@ -110,7 +110,7 @@ Este hash lo podemos poner en [https://crackstation.net]*crackstation.net* y nos
 
 ![](/assets/images/thl-writeup-uploader/16.png)
 
-Vamos a probar a acceder al otro usuario desde SSH.
+Vamos a probar a acceder al otro desde www-data con el comando 'su operatorx'.
 
 ![](/assets/images/htb-writeup-delivery/mm7.png)
 
