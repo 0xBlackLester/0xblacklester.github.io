@@ -1,4 +1,4 @@
----
+<img width="1939" height="952" alt="image" src="https://github.com/user-attachments/assets/11f12598-f221-4bf5-9d57-a516d1287167" /><img width="1923" height="946" alt="image" src="https://github.com/user-attachments/assets/57362ecb-4e8d-4f08-9b9b-38d0acbac411" />---
 layout: single
 title: "Uploader: Easy - TheHackersLabs"
 excerpt: "Uploader, un sitio web el cual ofrece almacenamiento en la nube a cualquier usuario que acceda a ella sin necesidad de registrarse previamente, no solo no saben hacer páginas web, si no que además ponen en peligro a los usuarios que utilicen su servicio. Es hora de darles una lección."
@@ -112,119 +112,24 @@ Este hash lo podemos poner en [https://crackstation.net]*crackstation.net* y nos
 
 Vamos a probar a acceder al otro desde www-data con el comando 'su operatorx'.
 
-![](/assets/images/htb-writeup-delivery/mm7.png)
+![](/assets/images/thl-writeup-uploader/17.png)
 
 Ahora ya estamos en otro usuario y podemos acceder a recursos que anteriormente no podiamos, vamos a leer la primera flag.
 
-![](/assets/images/htb-writeup-delivery/mm7.png)
+![](/assets/images/thl-writeup-uploader/18.png)
 
 ## Escalada de privilegios
 
-Una vez hemos accedido a un usuario del sistema y conseguimos la flag de usuario, podemos ir a por el usuario root, podemos probar desde buscar permisos SUID a binarios con permisos SUDO.
+Una vez hemos accedido al usuario y conseguimos la flag de usuario, debemos ir a por el usuario root, podemos probar desde buscar permisos SUID a binarios con permisos SUDO, también existen distintas técnicas más pero no se va a dar el caso en esta máquina.
 
-![](/assets/images/htb-writeup-delivery/user.png)
+Probamos con `sudo -l` y podemos observar que binarios o scripts podemos ejecutar como administrador.
 
-Con `sudo -l` podemos ver que binarios o scripts podemos ejecutar como administrador, el problema es que hay algunos binarios que pueden ser explotados por un atacante.
+![](/assets/images/thl-writeup-uploader/19.png)
 
-![](/assets/images/htb-writeup-delivery/user.png)
+Hay un binario el cual podemos ejecutar como root, desde la web 'https://gtfobins.github.io/' podemos buscar el binario, en este caso TAR si es un binario el cual podemos aprovechar para elevar privilegios.
 
-Nos salen varios binarios, desde la web 'https://gtfobins.github.io/' podemos buscar cada binario y ver si son explotables, en este caso vamos a utilizar el binario VIM para escalar privilegios.
+![](/assets/images/thl-writeup-uploader/20.png)
 
-![](/assets/images/htb-writeup-delivery/user.png)
+Ahora que somos root podemos leer la flag que nos quedaba dentro de su usuario.
 
-## Credentials in MySQL database
-
-After doing some recon we find the MatterMost installation directory in `/opt/mattermost`:
-
-```
-maildeliverer@Delivery:/opt/mattermost/config$ ps waux | grep -i mattermost
-matterm+   741  0.2  3.3 1649596 135112 ?      Ssl  20:00   0:07 /opt/mattermost/bin/mattermost
-```
-
-The `config.json` file contains the password for the MySQL database:
-
-```
-[...]
-"SqlSettings": {
-        "DriverName": "mysql",
-        "DataSource": "mmuser:Crack_The_MM_Admin_PW@tcp(127.0.0.1:3306)/mattermost?charset=utf8mb4,utf8\u0026readTimeout=30s\u0026writeTimeout=30s",
-[...]
-```
-
-We'll connect to the database server and poke around.
-
-```
-maildeliverer@Delivery:/$ mysql -u mmuser --password='Crack_The_MM_Admin_PW'
-Welcome to the MariaDB monitor.  Commands end with ; or \g.
-Your MariaDB connection id is 91
-Server version: 10.3.27-MariaDB-0+deb10u1 Debian 10
-
-Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-MariaDB [(none)]> show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mattermost         |
-+--------------------+
-```
-
-MatterMost user accounts are stored in the `Users` table and hashed with bcrypt. We'll save the hashes then try to crack them offline.
-
-```
-MariaDB [(none)]> use mattermost;
-Reading table information for completion of table and column names
-You can turn off this feature to get a quicker startup with -A
-
-Database changed
-MariaDB [mattermost]> select Username,Password from Users;
-+----------------------------------+--------------------------------------------------------------+
-| Username                         | Password                                                     |
-+----------------------------------+--------------------------------------------------------------+
-| surveybot                        |                                                              |
-| c3ecacacc7b94f909d04dbfd308a9b93 | $2a$10$u5815SIBe2Fq1FZlv9S8I.VjU3zeSPBrIEg9wvpiLaS7ImuiItEiK |
-| 5b785171bfb34762a933e127630c4860 | $2a$10$3m0quqyvCE8Z/R1gFcCOWO6tEj6FtqtBn8fRAXQXmaKmg.HDGpS/G |
-| root                             | $2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO |
-| snowscan                         | $2a$10$spHk8ZGr54VWf4kNER/IReO.I63YH9d7WaYp9wjiRswDMR.P/Q9aa |
-| ff0a21fc6fc2488195e16ea854c963ee | $2a$10$RnJsISTLc9W3iUcUggl1KOG9vqADED24CQcQ8zvUm1Ir9pxS.Pduq |
-| channelexport                    |                                                              |
-| 9ecfb4be145d47fda0724f697f35ffaf | $2a$10$s.cLPSjAVgawGOJwB7vrqenPg2lrDtOECRtjwWahOzHfq1CoFyFqm |
-+----------------------------------+--------------------------------------------------------------+
-8 rows in set (0.002 sec)
-```
-
-## Cracking with rules
-
-There was a hint earlier that some variation of `PleaseSubscribe!` is used.
-
-I'll use hashcat for this and since I don't know the hash ID for bcrypt by heart I can find it in the help.
-
-```
-C:\bin\hashcat>hashcat --help | findstr bcrypt
-   3200 | bcrypt $2*$, Blowfish (Unix)                     | Operating System
-```
-
-My go-to rules is normally one of those two ruleset:
-
-- [https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule](https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule)
-- [https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule](https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule)
-
-These will perform all sort of transformations on the wordlist and we can quickly crack the password: `PleaseSubscribe!21`
-
-```
-C:\bin\hashcat>hashcat -a 0 -m 3200 -w 3 -O -r rules\_NSAKEY.v2.dive.rule hash.txt wordlist.txt
-[...]
-$2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO:PleaseSubscribe!21
-
-Session..........: hashcat
-Status...........: Cracked
-Hash.Name........: bcrypt $2*$, Blowfish (Unix)
-[...]
-```
-
-The root password from MatterMost is the same as the local root password so we can just su to root and get the system flag.
-
-![](/assets/images/htb-writeup-delivery/root.png)
+![](/assets/images/thl-writeup-uploader/21.png)
