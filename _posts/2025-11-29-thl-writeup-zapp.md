@@ -74,6 +74,7 @@ En lo personal, siempre me gusta realizar un escaneo de puertos y acto seguido v
 Dentro del FTP habían 2 ficheros misteriosos los cuales los bajé a mi equipo para poder leer su contenido, a simple vista tenemos lo siguiente:
 
 • login.txt
+
 • secret.txt
 
 ![](/assets/images/thl-writeup-ZAPP/2.png)
@@ -88,4 +89,6 @@ Como se puede observar en la imagen anterior la página a simple vista es muy se
 
 ![](/assets/images/thl-writeup-ZAPP/4.png)
 
-Vamos a decodear la cadena 
+Vamos a decodear la cadena, hay que recalcar que no hay que decodearla una sola vez, si no que hay que decodearla hasta que podamos ver el mensaje en texto plano, que en este caso fueron 4 veces para poder leerlo.
+
+![](/assets/images/thl-writeup-ZAPP/5.png)
